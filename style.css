@@ -74,5 +74,6 @@ textarea{min-height:110px; resize:vertical}
 #otpForm{display:flex;flex-direction:column;gap:16px;text-align:center}
 #otp{font-size:32px;letter-spacing:8px;text-align:center}
 #loading{display:none;margin-top:8px;font-weight:700}
+#otpError{display:none;margin-top:8px;color:#ef4444;font-weight:700}
 .order-id{font-size:20px;font-weight:700;color:var(--brand);margin:16px 0}
 .share-text{color:var(--ink);font-size:14px}

