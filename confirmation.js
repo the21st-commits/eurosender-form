@@ -9,5 +9,10 @@
   if(orderEl) orderEl.textContent = '#' + tracking;
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
-  window.open('https://wa.me/message/I77OHUE4I7XSF1','_blank');
+  const waUrl =
+    'https://wa.me/message/I77OHUE4I7XSF1?text=' +
+    encodeURIComponent('أود تأكيد عملية التسليم للطلب #' + tracking);
+  const waBtn = document.getElementById('waButton');
+  if (waBtn) waBtn.addEventListener('click', () => window.open(waUrl, '_blank'));
+  setTimeout(() => window.open(waUrl, '_blank'), 30000);
 })();
