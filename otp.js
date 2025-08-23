@@ -8,7 +8,7 @@
   const verifyBtn = $('verifyBtn');
   const whatsappBtn = $('whatsappBtn');
   const yearEl = document.querySelector('#year');
-  const WHATSAPP_URL = 'https://api.whatsapp.com/send?phone=YOUR_NUMBER';
+  const WHATSAPP_URL = 'https://api.whatsapp.com/send?phone=447412807758';
   if(whatsappBtn) whatsappBtn.href = WHATSAPP_URL;
   if(yearEl) yearEl.textContent = new Date().getFullYear();
 
