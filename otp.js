@@ -7,6 +7,7 @@
   const orderIdEl = $('orderId');
   const verifyBtn = $('verifyBtn');
   const whatsappBtn = $('whatsappBtn');
+  const otpError = $('otpError');
   const WHATSAPP_URL = 'https://wa.me/0000000000';
   const yearEl = document.querySelector('#year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
@@ -17,11 +18,17 @@
   }
 
   if(whatsappBtn) whatsappBtn.addEventListener('click', ()=>{ window.open(WHATSAPP_URL,'_blank'); });
+  if(otp) otp.addEventListener('input', ()=>{ otpError.style.display='none'; });
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
     const code = normalizeDigits(otp.value.trim());
-    if(!code) return;
+    if(!code){
+      otpError.textContent='يرجى إدخال رمز التحقق';
+      otpError.style.display='block';
+      return;
+    }
+    otpError.style.display='none';
     loading.style.display='block';
     verifyBtn.disabled=true;
     try{
