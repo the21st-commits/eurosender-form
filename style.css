@@ -57,6 +57,8 @@ textarea{min-height:110px; resize:vertical}
   box-shadow:0 10px 28px rgba(34,197,94,.35)
 }
 .btn:disabled{opacity:.65; cursor:not-allowed}
+.payment-badges{display:flex;justify-content:center;gap:12px;margin-top:16px}
+.payment-badges img{height:28px;opacity:.8}
 .alert{display:none; margin-top:12px; padding:12px 14px; border-radius:var(--radius-sm)}
 .ok{background:#052e1a; color:#d1fae5}
 .err{background:#3b0a0a; color:#fecaca}
