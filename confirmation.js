@@ -1,9 +1,14 @@
 (function(){
   const params = new URLSearchParams(window.location.search);
-  const orderId = params.get('order') || '';
+  const tracking = params.get('order') || '';
   const orderEl = document.getElementById('orderId');
-  if(orderEl) orderEl.textContent = orderId;
+  if(orderEl) orderEl.textContent = tracking;
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = new Date().getFullYear();
-  window.open('https://wa.me/message/I77OHUE4I7XSF1','_blank');
+  const WHATSAPP_URL = 'https://wa.me/447412807758?text=' +
+    encodeURIComponent('مرحباً، رقم تتبعي هو #' + tracking);
+  const whatsappBtn = document.getElementById('whatsappBtn');
+  if(whatsappBtn) whatsappBtn.href = WHATSAPP_URL;
+  alert('سيتم تحويلك تلقائيًا إلى واتساب خلال دقيقتين للتواصل مع خدمة العملاء.');
+  setTimeout(() => { window.location.href = WHATSAPP_URL; }, 120000);
 })();
