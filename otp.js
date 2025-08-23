@@ -46,7 +46,7 @@
         return;
       }
       const orderId = data.orderId;
-      window.location.href = 'confirmation.html?order=' + encodeURIComponent(orderId);
+      window.location.href = './confirmation.html?order=' + orderId;
     }catch(ex){
       console.error(ex);
       otpError.textContent='تعذّر الاتصال بالخادم';
