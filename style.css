@@ -21,6 +21,7 @@ body{
 }
 .brand{display:flex; align-items:center; gap:10px}
 .logo{height:28px} .logo2{height:28px}
+.logo-full{max-height:80px;margin:0 auto;display:block}
 .x{opacity:.6}
 .meta .title{font-weight:700}
 .meta .subtitle{font-size:12px; color:var(--muted)}
