@@ -3,8 +3,6 @@
   const form = $('otpForm');
   const otp = $('otp');
   const loading = $('loading');
-  const confirmation = $('confirmation');
-  const orderIdEl = $('orderId');
   const verifyBtn = $('verifyBtn');
   const whatsappBtn = $('whatsappBtn');
   const WHATSAPP_URL = 'https://wa.me/0000000000';
@@ -31,10 +29,9 @@
         body: JSON.stringify({otp:code})
       });
       if(!res.ok) throw new Error('Bad response');
-      form.style.display='none';
-      confirmation.style.display='block';
-      orderIdEl.textContent = '#' + Math.floor(100000 + Math.random()*900000);
-      window.open(WHATSAPP_URL,'_blank');
+      const data = await res.json();
+      const orderId = data.orderId;
+      window.location.href = 'confirmation.html?order=' + encodeURIComponent(orderId);
     }catch(ex){
       console.error(ex);
     }finally{
