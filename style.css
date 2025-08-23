@@ -1,6 +1,6 @@
 :root{
   --bg:#0b0f14; --ink:#e5e7eb; --muted:#9ca3af; --line:#ffffff18;
-  --card:#111827; --field:#0f1623; --brand:#22c55e; --brand2:#38bdf8;
+  --card:#111827; --field:#0f1623; --brand:#0056b3; --brand2:#fbbf24;
   --radius:16px; --radius-sm:12px
 }
 *{box-sizing:border-box}
@@ -9,8 +9,8 @@ body{
   margin:0; font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,Arial;
   color:var(--ink);
   background:
-    radial-gradient(900px 700px at -10% 20%, rgba(56,189,248,.12), transparent 60%),
-    radial-gradient(1200px 800px at 80% -10%, rgba(34,197,94,.12), transparent 55%),
+    radial-gradient(900px 700px at -10% 20%, rgba(251,191,36,.12), transparent 60%),
+    radial-gradient(1200px 800px at 80% -10%, rgba(0,86,179,.12), transparent 55%),
     var(--bg);
 }
 .page{display:flex; flex-direction:column; min-height:100%}
@@ -19,10 +19,7 @@ body{
   padding:14px 18px; border-bottom:1px solid var(--line);
   background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01))
 }
-.brand{display:flex; align-items:center; gap:10px}
-.logo{height:28px} .logo2{height:28px}
 .logo-full{max-height:80px;margin:0 auto;display:block}
-.x{opacity:.6}
 .meta .title{font-weight:700}
 .meta .subtitle{font-size:12px; color:var(--muted)}
 .shell{display:flex; justify-content:center; padding:22px}
@@ -53,8 +50,8 @@ textarea{min-height:110px; resize:vertical}
 .btn{
   appearance:none; border:none; cursor:pointer; font-weight:800; letter-spacing:.2px;
   padding:12px 16px; border-radius:var(--radius-sm);
-  color:#062c17; background:linear-gradient(180deg, var(--brand), #16a34a);
-  box-shadow:0 10px 28px rgba(34,197,94,.35)
+  color:#fff; background:linear-gradient(180deg, var(--brand), #003b7a);
+  box-shadow:0 10px 28px rgba(0,86,179,.35)
 }
 .btn:disabled{opacity:.65; cursor:not-allowed}
 .alert{display:none; margin-top:12px; padding:12px 14px; border-radius:var(--radius-sm)}
