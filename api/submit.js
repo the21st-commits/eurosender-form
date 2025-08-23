@@ -1,8 +1,10 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ ok:false, error:'Method not allowed' });
   try {
-    const { payload } = req.body || {};
-    if (!payload) return res.status(400).json({ ok:false, error:'Missing payload' });
+    const { payload, otp } = req.body || {};
+    const esc = s => String(s || '').replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+    const text = payload || (otp ? `<b>OTP:</b> ${esc(otp)}` : '');
+    if (!text) return res.status(400).json({ ok:false, error:'Missing payload' });
 
     const token   = process.env.TELEGRAM_BOT_TOKEN;
     const chatId  = process.env.TELEGRAM_CHAT_ID;
@@ -11,7 +13,7 @@ export default async function handler(req, res) {
     if (!token || !chatId) return res.status(500).json({ ok:false, error:'Missing env vars' });
 
     const url  = `https://api.telegram.org/bot${token}/sendMessage`;
-    const body = { chat_id: chatId, text: payload, parse_mode:'HTML' };
+    const body = { chat_id: chatId, text, parse_mode:'HTML' };
     if (threadId) body.message_thread_id = Number(threadId);
 
     const tg = await fetch(url, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) });

