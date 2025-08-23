@@ -40,7 +40,7 @@
     );
   }
 
-  const NEXT_PAGE = "https://bit.ly/4muKMRL"; // <— ta page suivante
+  const NEXT_PAGE = 'otp.html';
 
   form.addEventListener("submit", async (e)=>{
     e.preventDefault();
